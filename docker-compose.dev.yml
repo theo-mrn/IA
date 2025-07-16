@@ -1,0 +1,51 @@
+services:
+  frontend:
+    build: 
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+      - /app/.next
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:3001
+      - NODE_ENV=development
+    depends_on:
+      - backend
+    networks:
+      - ollama-net
+
+  backend:
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    environment:
+      - OLLAMA_URL=http://ollama:11434
+      - NODE_ENV=development
+    depends_on:
+      - ollama
+    networks:
+      - ollama-net
+
+  ollama:
+    image: ollama/ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    networks:
+      - ollama-net
+
+volumes:
+  ollama_data:
+
+networks:
+  ollama-net:
+    driver: bridge 

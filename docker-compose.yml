@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  frontend:
+    build: 
+      context: ./frontend
+      args:
+        - NEXT_PUBLIC_API_URL=http://localhost:3001
+    ports:
+      - "3000:3000"  # Le Dockerfile frontend utilise Next.js sur le port 3000
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:3001
+    depends_on:
+      - backend
+    networks:
+      - ollama-net
+
+  backend:
+    build: ./backend
+    ports:
+      - "3001:3001"
+    environment:
+      - OLLAMA_URL=http://ollama:11434
+      - NODE_ENV=production
+    depends_on:
+      - ollama
+    networks:
+      - ollama-net
+
+  ollama:
+    image: ollama/ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    networks:
+      - ollama-net
+
+volumes:
+  ollama_data:
+
+networks:
+  ollama-net:
+    driver: bridge
