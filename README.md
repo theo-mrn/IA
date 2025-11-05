@@ -316,24 +316,7 @@ docker exec -it ia-ollama-1 ollama list
 2. Vérifier les logs backend pour voir les erreurs de recherche
 3. DuckDuckGo peut avoir des limites de taux - attendre quelques minutes
 
-### Performances lentes
 
-1. Augmenter la RAM allouée à Docker (minimum 8 GB recommandé)
-2. Ajuster les paramètres du modèle dans `server.js` :
-   - `num_ctx` : Contexte (défaut: 4096)
-   - `num_thread` : Threads CPU (défaut: 4)
-   - `temperature` : Créativité (défaut: 0.7)
-
-## 📝 Améliorations futures
-
-- [ ] Historique des conversations
-- [ ] Support de plusieurs modèles IA
-- [ ] Export des conversations
-- [ ] Mode sombre/clair
-- [ ] Support multilingue
-- [ ] Cache des recherches web
-- [ ] API de gestion des sources
-- [ ] Tests unitaires et E2E
 
 ## 📄 Licence
 
@@ -341,7 +324,7 @@ Ce projet est sous licence ISC.
 
 ## 👨‍💻 Auteur
 
-Créé avec ❤️ par Theo
+Créé avec  par Theo
 
 ---
 
